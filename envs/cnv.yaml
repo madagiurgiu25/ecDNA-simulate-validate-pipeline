@@ -1,0 +1,10 @@
+name: cnv
+channels:
+  - bioconda
+  - conda-forge
+  - default
+dependencies:
+  - pysam==0.15.0
+  - numpy==0.15.0
+  - bioconductor-dnacopy==1.68.0
+  - bedtools==2.30.0

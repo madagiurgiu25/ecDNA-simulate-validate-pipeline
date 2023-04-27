@@ -1,0 +1,14 @@
+name: assembly
+channels:
+ - bioconda
+ - conda-forge
+ - defaults
+dependencies:
+# - shasta==0.8.0
+ - shasta==0.6.0
+# - unicycler==0.5.0
+ - unicycler==0.4.8
+ - quast==5.0.2
+ - bwa==0.7.17
+ - samtools==1.9
+ - minimap2==2.24

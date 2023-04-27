@@ -1,0 +1,108 @@
+# input for the simulation or for the reconstruction
+# this can be the path to a bed configuration file or a fastq file
+input: ""
+
+# batch mode (run multiple samples at once)
+batch: ""
+
+# input can be a bed / fastq / bam / vcf
+inputtype: bed
+
+sample: ""
+
+outputdir: data/process
+
+# running mode of pipeline "simulate-reconstruct" or "reconstruct" or ...
+runmode: simulate-mapping-sv-reconstruct-validate
+
+# {ngmlr, winnowmap2}
+mapper: "ngmlr"
+
+pickgenome: "ref_hg38_cluster"
+
+genomes:
+  ref_T2T_cluster:
+    name: T2T
+    # Path to the reference genome
+    genome: /fast/projects/NB_CircleSeq/work/CircleSeq_data/CircleSeq/Nanopore/scripts/reference/chm13v2.0.fa
+    mmi: /fast/projects/NB_CircleSeq/work/CircleSeq_data/CircleSeq/Nanopore/scripts/reference/chm13v2.0.fa
+    gtf: ""
+    kmer: /fast/projects/NB_CircleSeq/work/CircleSeq_data/CircleSeq/Nanopore/scripts/reference/chm13v2.0.fa_repetitive_k15.txt
+  ref_hg38_cluster:
+    name: GRCh38.primary
+    # Path to the reference genome
+    genome: /fast/projects/NB_CircleSeq/work/CircleSeq_data/CircleSeq/Nanopore/scripts/reference/GRCh38.p13.genome.chr_scaff.fa
+    mmi: /fast/projects/NB_CircleSeq/work/CircleSeq_data/CircleSeq/Nanopore/scripts/reference/GRCh38.p13.genome.chr_scaff.fa
+    gtf: /fast/projects/NB_CircleSeq/work/CircleSeq_data/CircleSeq/Nanopore/scripts/reference/gencode.v42.primary_assembly.basic.annotation.gtf
+    kmer: /fast/projects/NB_CircleSeq/work/CircleSeq_data/CircleSeq/Nanopore/scripts/reference/GRCh38.p13.genome.chr_scaff.fa_repetitive_k15.txt
+  ref_hg19_cluster:
+    name: GRCh37.primary
+    # Path to the reference genome
+    genome: /fast/projects/NB_CircleSeq/work/CircleSeq_data/CircleSeq/Nanopore/scripts/reference/GRCh37.primary_assembly.genome.fa
+    mmi: /fast/projects/NB_CircleSeq/work/CircleSeq_data/CircleSeq/Nanopore/scripts/reference/GRCh37.primary_assembly.genome.fa
+    gtf: ""
+    kmer: /fast/projects/NB_CircleSeq/work/CircleSeq_data/CircleSeq/Nanopore/scripts/reference/GRCh37.primary_assembly.genome.fa_repetitive_k15.txt
+
+  ref_hg38_home:
+    name: GRCh38.primary
+    genome: /home/mada/Projects/references/GRCh38.primary_assembly.genome.fa
+    mmi: /home/mada/Projects/references/GRCh38.primary_assembly.genome.mmi
+    gtf: /home/mada/Projects/references/gencode.v38.annotation.gtf
+  ref_hg38_work:
+    name: GRCh38.primary
+    # Path to the reference genome
+    genome: /Users/madag/Projects/PhD/reference/GRCh38.primary_assembly.genome.fa
+    mmi: /Users/madag/Projects/PhD/reference/GRCh38.primary_assembly.genome.mmi
+    gtf: /Users/madag/Projects/PhD/annotation/gencode.v42.primary_assembly.basic.annotation.gtf
+
+simulation:
+  depth: 100
+  avglen: 7000
+  macc: 0.85
+#  hmm: /home/mada/Projects/henssen_lab/Repositories/pbsim2/data/R94.model
+#  hmm: /Users/madag/Projects/PhD/github/pbsim2/data/R94.model
+  hmm: /data/gpfs-1/users/giurgium_c/work/github/pbsim2/data/R94.model
+  circular: 1
+
+#decoil: decoil/decoil/main.py
+# export PYTHONPATH=/Users/madag/Projects/PhD/github/reconstruct/decoil:$PYTHONPATH
+#decoil: /Users/madag/Projects/PhD/github/reconstruct/decoil/decoil/main.py
+decoil: ../decoil/decoil/main.py
+validate: scripts/validate.py
+
+params:
+  bwaasm: "-E0.5 -x intractg"
+  maxmem: 10000
+  threads: 4
+
+filtering:
+  assembly:
+    readlen: 3000
+    qual: 20
+  mapping:
+    readlen: 300
+    qual: 7
+  svcalling:
+    svlen: 50
+
+cnv:
+#  smurfseq: /home/mada/Projects/tools/smurfseq_scripts/scripts
+  smurfseq: /Users/madag/Projects/PhD/github/smurfseq_scripts/scripts
+  hg38:
+      chromsize: scripts/cnv_data/hg38.chrom.sizes
+      bins: scripts/cnv_data/hg38_bins_5k_size.bed
+      gccontent:  scripts/cnv_data/hg38_bins_5k_size_gc.txt
+      exclude: scripts/cnv_data/hg38_bins_5k_size_exclude.txt
+
+  hg19:
+      chromsize: scripts/cnv_data/hg19.chrom.sizes
+      bins: scripts/cnv_data/bins_50k_hg19.bed
+      gccontent: scripts/cnv_data/bins_50k_hg19_gc.txt
+      exclude: scripts/cnv_data/bins_50k_hg19_exclude.txt
+
+vcf: ""
+
+bw: ""
+
+bam: ""
+

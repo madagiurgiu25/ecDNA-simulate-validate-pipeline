@@ -1,0 +1,8 @@
+name: mapping
+channels:
+ - bioconda
+ - conda-forge
+ - defaults
+dependencies:
+ - ngmlr==0.2.7
+ - samtools==1.9

@@ -1,0 +1,9 @@
+name: sv
+channels:
+  - bioconda
+  - conda-forge
+  - default
+dependencies:
+  - sniffles==1.0.12
+  - svim==1.4.2
+  - survivor==1.0.7
