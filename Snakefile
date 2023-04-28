@@ -15,7 +15,7 @@ if RUNMODE in [RUNFULL, RUNSIM, RUNSIMTOSV]:
 if RUNMODE in [RUNFULL]:
 	include: "rules/validate.smk"
 
-if RUNMODE in [RUNFULL, RUNMAPPING, RUNSIMTOSV]:
+if RUNMODE in [RUNFULL, RUNMAPPING, RUNSIMTOSV, RUNSIMPLE]:
 	if MAPPER == "ngmlr":
 		include: "rules/mapping_ngmlr.smk"
 	else:
@@ -26,13 +26,13 @@ if RUNMODE in [RUNFULL, RUNMAPPING, RUNSIMTOSV]:
 if RUNMODE in [RUNFULL]:
 	include: "rules/assembly.smk"
 
-if RUNMODE in [RUNFULL, RUNMAPPING, RUNSV, RUNSIMTOSV]:
+if RUNMODE in [RUNFULL, RUNMAPPING, RUNSV, RUNSIMTOSV, RUNSIMPLE]:
 	include: "rules/sv.smk"
 
 if RUNMODE in [RUNFULL, RUNCNV]:
 	include: "rules/cnv.smk"
 
-if RUNMODE in [RUNFULL, RUNRECONSTRUCT, RUNSV, RUNMAPPING]:
+if RUNMODE in [RUNFULL, RUNRECONSTRUCT, RUNSV, RUNMAPPING, RUNSIMPLE]:
 	include: "rules/reconstruct.smk"
 
 # include: "rules/circlator.smk"
@@ -69,11 +69,11 @@ def get_temp_files_simulation(run_mode):
 
 
 def get_file_mapping(run_mode):
-	if run_mode in [RUNFULL, RUNMAPPING, RUNSIMTOSV]:
+	if run_mode in [RUNFULL, RUNMAPPING, RUNSIMTOSV, RUNSIMPLE]:
 		return expand([
 			"{outdir}/{sample}/mapping/coverage.bw",
-			"{outdir}/{sample}/mapping/ngmlr.bam",
-			"{outdir}/{sample}/mapping/ngmlr.bam.bai",
+			"{outdir}/{sample}/mapping/map.bam",
+			"{outdir}/{sample}/mapping/map.bam.bai",
 			"{outdir}/{sample}/logs/cov.log"
 		],outdir=OUTPUTDIR,sample=SAMPLE)
 	return []
@@ -89,7 +89,7 @@ def get_file_assembly(run_mode):
 
 
 def get_file_sv(run_mode):
-	if run_mode in [RUNFULL, RUNMAPPING, RUNSV, RUNSIMTOSV]:
+	if run_mode in [RUNFULL, RUNMAPPING, RUNSV, RUNSIMTOSV, RUNSIMPLE]:
 		return expand([
 			"{outdir}/{sample}/sv/sv.sniffles.vcf",
 			"{outdir}/{sample}/sv/sv.sniffles.bedpe",
@@ -100,7 +100,7 @@ def get_file_sv(run_mode):
 
 
 def get_files_reconstruction(run_mode):
-	if run_mode in [RUNFULL, RUNRECONSTRUCT, RUNMAPPING, RUNSV]:
+	if run_mode in [RUNFULL, RUNRECONSTRUCT, RUNMAPPING, RUNSV, RUNSIMPLE]:
 		return expand([
 			"{outdir}/{sample}/sv/sv.sniffles.filtered.vcf",
 			"{outdir}/{sample}/sv/sv.sniffles.filtered.bedpe",

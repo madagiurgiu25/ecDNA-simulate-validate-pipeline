@@ -6,3 +6,5 @@ channels:
 dependencies:
  - ngmlr==0.2.7
  - samtools==1.9
+ - pip:
+   - NanoFilt==2.8.0

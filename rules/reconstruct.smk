@@ -1,14 +1,13 @@
 rule filter:
 	input:
 		# choose as input the sv simulated calles or real vcf (given as param)
-		lambda wildcards: "{outdir}/{sample}/sv/sv.sniffles.vcf" if RUNMODE in [RUNFULL, RUNMAPPING, RUNSV] else VCF
+		lambda wildcards: "{outdir}/{sample}/sv/sv.sniffles.vcf" if RUNMODE in [RUNFULL, RUNMAPPING, RUNSV, RUNSIMPLE] else VCF
 	output:
 		"{outdir}/{sample}/sv/sv.sniffles.filtered.vcf"
-	conda:
-		"../envs/reconstruct.yaml"
+#	conda:
+#		"../envs/reconstruct.yaml"
 	params:
 		threads=THREADS,
-		decoilscript=DECOIL_SCRIPT,
 		name="{sample}"
 	log:
 		"{outdir}/{sample}/logs/filter.log"
@@ -16,8 +15,7 @@ rule filter:
 		"""
 		# cd ../decoil/ && python -m pip install -e . && cd ../simulation && \
 		mkdir -p "{wildcards.outdir}/{wildcards.sample}/sv" && \
-		python {params.decoilscript} \
-		   --filter -i {input} -o {output}
+		decoil filter -i {input} -o {output}
 		"""
 
 # cat {input} | awk -F"\t" '{{if($0 ~ /#/) {{print}} else {{ if ($7 ~ /(PASS|STRANDBIAS)/) {{print}} }} }}' > {output}
@@ -43,22 +41,23 @@ rule reconstruct_v1:
 		# vcf="{outdir}/{sample}/sv/sv.sniffles.filtered.vcf",
 		vcf="{outdir}/{sample}/sv/sv.sniffles.vcf",
 		ref=REF,
-		bigwig=lambda wildcards: "{outdir}/{sample}/mapping/coverage.bw" if RUNMODE in [RUNFULL, RUNMAPPING, RUNSV] else BW,
-		bam=lambda wildcards: "{outdir}/{sample}/mapping/ngmlr.bam" if RUNMODE in [RUNFULL, RUNMAPPING, RUNSV] else BAM
+		bigwig=lambda wildcards: "{outdir}/{sample}/mapping/coverage.bw" if RUNMODE in [RUNFULL, RUNMAPPING, RUNSV, RUNSIMPLE] else BW,
+		bam=lambda wildcards: "{outdir}/{sample}/mapping/map.bam" if RUNMODE in [RUNFULL, RUNMAPPING, RUNSV, RUNSIMPLE] else BAM
 	output:
 		fasta="{outdir}/{sample}/reconstruct/reconstruct.ecDNA.fasta",
 		bed="{outdir}/{sample}/reconstruct/reconstruct.ecDNA.bed"
-	conda:
-		"../envs/reconstruct.yaml"
+#	conda:
+#		"../envs/reconstruct.yaml"
 	params:
 		outdir="{outdir}/{sample}/reconstruct",
-		decoilscript=DECOIL_SCRIPT,
 		name="{sample}"
 	log:
 		"{outdir}/{sample}/logs/reconstruct_v1.log"
 	shell:
 		"""
-		python {params.decoilscript} \
+		decoil reconstruct \
+			--min-vaf 0.3 --min-cov-alt 8 --min-cov 10 \
+			--fragment-min-cov 10 --fragment-min-size 500 \
 			--vcf {input.vcf} \
 			--genome {input.ref} \
 			--bam {input.bam} \

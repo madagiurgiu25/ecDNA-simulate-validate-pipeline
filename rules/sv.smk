@@ -1,8 +1,8 @@
 
 rule sniffles:
     input:
-        bam=lambda wildcards: "{outdir}/{sample}/mapping/ngmlr.bam" if RUNMODE in [RUNFULL,RUNMAPPING, RUNSIMTOSV] else BAM,
-        bai=lambda wildcards: "{outdir}/{sample}/mapping/ngmlr.bam.bai" if RUNMODE in [RUNFULL,RUNMAPPING, RUNSIMTOSV] else BAM + ".bai",
+        bam=lambda wildcards: "{outdir}/{sample}/mapping/map.bam" if RUNMODE in [RUNFULL,RUNMAPPING, RUNSIMTOSV, RUNSIMPLE] else BAM,
+        bai=lambda wildcards: "{outdir}/{sample}/mapping/map.bam.bai" if RUNMODE in [RUNFULL,RUNMAPPING, RUNSIMTOSV, RUNSIMPLE] else BAM + ".bai",
     output:
         "{outdir}/{sample}/sv/sv.sniffles.vcf"
     conda:

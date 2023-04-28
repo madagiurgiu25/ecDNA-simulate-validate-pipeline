@@ -19,7 +19,7 @@ rule winnowmap:
         mem_mb=get_mem_gb
     shell:
         """
-        winnowmap --threads {params.threads} -W {input.kmers} -ax map-ont {input.ref} {input.fastq} > {output.sam}
+        winnowmap -W {input.kmers} -ax map-ont {input.ref} {input.fastq} > {output.sam}
         samtools sort -O BAM -o {output.bam} {output.sam}
         samtools index {output.bam}
         """

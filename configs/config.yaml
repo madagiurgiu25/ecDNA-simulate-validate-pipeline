@@ -42,18 +42,19 @@ genomes:
     mmi: /fast/projects/NB_CircleSeq/work/CircleSeq_data/CircleSeq/Nanopore/scripts/reference/GRCh37.primary_assembly.genome.fa
     gtf: ""
     kmer: /fast/projects/NB_CircleSeq/work/CircleSeq_data/CircleSeq/Nanopore/scripts/reference/GRCh37.primary_assembly.genome.fa_repetitive_k15.txt
-
   ref_hg38_home:
     name: GRCh38.primary
     genome: /home/mada/Projects/references/GRCh38.primary_assembly.genome.fa
     mmi: /home/mada/Projects/references/GRCh38.primary_assembly.genome.mmi
     gtf: /home/mada/Projects/references/gencode.v38.annotation.gtf
+    kmer: ""
   ref_hg38_work:
     name: GRCh38.primary
     # Path to the reference genome
     genome: /Users/madag/Projects/PhD/reference/GRCh38.primary_assembly.genome.fa
     mmi: /Users/madag/Projects/PhD/reference/GRCh38.primary_assembly.genome.mmi
     gtf: /Users/madag/Projects/PhD/annotation/gencode.v42.primary_assembly.basic.annotation.gtf
+    kmer: ""
 
 simulation:
   depth: 100

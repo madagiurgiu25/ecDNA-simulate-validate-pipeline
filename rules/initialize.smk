@@ -16,7 +16,7 @@ CONFIG_GENOME = config["pickgenome"]
 REF = config["genomes"][CONFIG_GENOME]["genome"]
 REF_MMI = config["genomes"][CONFIG_GENOME]["mmi"]
 GTF = config["genomes"][CONFIG_GENOME]["gtf"]
-KMER = config["genomes"][CONFIG_GENOME]["kmer"]
+KMERS = config["genomes"][CONFIG_GENOME]["kmer"]
 
 OUTPUTDIR = config["outputdir"]
 
@@ -32,8 +32,9 @@ RUNSV = 'sv-reconstruct'
 RUNCNV = 'cnv'
 RUNSIM = 'simulate'
 RUNSIMTOSV = 'simulate-mapping-sv'
+RUNSIMPLE = "simple-mapping-sv-reconstruct"
 
-run_options = [RUNFULL, RUNRECONSTRUCT, RUNMAPPING, RUNSV, RUNSIM, RUNCNV, RUNSIMTOSV]
+run_options = [RUNFULL, RUNRECONSTRUCT, RUNMAPPING, RUNSV, RUNSIM, RUNCNV, RUNSIMTOSV, RUNSIMPLE]
 
 if RUNMODE not in run_options:
     s = ",".join(run_options)
@@ -42,7 +43,7 @@ if RUNMODE not in run_options:
 print(RUNMODE)
 
 # run mapping
-if RUNMODE in [RUNMAPPING]:
+if RUNMODE in [RUNMAPPING,RUNSIMPLE]:
 	FASTQ = config["fastq"]
 
 # run sv
