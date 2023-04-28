@@ -4,4 +4,5 @@ channels:
  - conda-forge
  - defaults
 dependencies:
- - deeptools==3.5.1
+ - pip:
+   - deeptools==3.5.1
