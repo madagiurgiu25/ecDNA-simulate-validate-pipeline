@@ -5,8 +5,8 @@ rule sniffles:
         bai=lambda wildcards: "{outdir}/{sample}/mapping/map.bam.bai" if RUNMODE in [RUNFULL,RUNMAPPING, RUNSIMTOSV, RUNSIMPLE] else BAM + ".bai",
     output:
         "{outdir}/{sample}/sv/sv.sniffles.vcf"
-    conda:
-        "../envs/sv.yaml"
+#    conda:
+#        "../envs/sv.yaml"
     params:
         threads = THREADS
     log:
@@ -33,8 +33,8 @@ rule survivor:
         unfilt="{outdir}/{sample}/sv/sv.sniffles.vcf"
     output:
         unfilt="{outdir}/{sample}/sv/sv.sniffles.bedpe"
-    conda:
-        "../envs/sv.yaml"
+#    conda:
+#        "../envs/sv.yaml"
     log:
         "{outdir}/{sample}/logs/survivor.log"
     shell:

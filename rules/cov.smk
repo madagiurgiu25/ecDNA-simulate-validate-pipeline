@@ -4,8 +4,8 @@ rule coverage:
         bai="{outdir}/{sample}/mapping/map.bam.bai"
     output:
         "{outdir}/{sample}/mapping/coverage.bw"
-    conda:
-       "../envs/cov.yaml"
+#    conda:
+#       "../envs/cov.yaml"
     log:
         cov="{outdir}/{sample}/logs/cov.log"
     params:
