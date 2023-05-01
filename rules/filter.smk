@@ -8,7 +8,7 @@ rule nanofilt:
     params:
         rlen = READ_MINLEN,
         qual = READ_QUAL
-#    conda:
-#        "../envs/mapping.yaml"
+    conda:
+        "../envs/mapping.yaml"
     shell:
         "NanoFilt -l {params.rlen} -q {params.qual} --headcrop 20 --tailcrop 20 --readtype 1D {input} > {output}"
