@@ -13,19 +13,25 @@ rule sniffles:
         "{outdir}/{sample}/logs/sniffles.log"
     shell:
         """
-        sniffles -t {params.threads} -m {input.bam} \
-        -v {output} --min_homo_af 0.7 \
-        --min_het_af 0.1 --min_length 50 \
-        --cluster --genotype --min_support 4 --report-seq
-        """
+		sniffles -t {params.threads} -m {input.bam} \
+		-v {output} --min_homo_af 0.7 \
+		--min_het_af 0.1 --min_length 50 \
+		--cluster --genotype --min_support 4 --report_seq
+		"""
+        # """
+        # sniffles -t {params.threads} -m {input.bam} \
+        # -v {output} --min_homo_af 0.7 \
+        # --min_het_af 0.1 --min_length 50 \
+        # --cluster --genotype --min_support 4 --report-seq
+        # """
 
 
-#         """
+#    """
 #	 # sniffles2
 #         sniffles -t {params.threads} -i {input.bam} -v {output} \
 #            --minsvlen 50 \
 #            --cluster-merge-bnd 300 --minsupport 4 --non-germline &> {log}
-#        """
+#   """
 
 rule survivor:
     priority: 1

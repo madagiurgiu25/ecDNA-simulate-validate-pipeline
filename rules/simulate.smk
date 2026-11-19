@@ -36,7 +36,7 @@ rule split_bed:
 	shell:
 		"""
 		# use grep -P in linux but for macos is grep -Ei
-		(head -1 {input.bedfile}; grep -P "\t{wildcards.id}\t" {input}) > {output}
+		(head -1 {input.bedfile}; grep -Ei "\t{wildcards.id}\t" {input}) > {output}
 		"""
 
 rule get_circle_fasta:

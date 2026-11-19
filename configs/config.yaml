@@ -61,8 +61,8 @@ simulation:
   avglen: 7000
   macc: 0.85
 #  hmm: /home/mada/Projects/henssen_lab/Repositories/pbsim2/data/R94.model
-#  hmm: /Users/madag/Projects/PhD/github/pbsim2/data/R94.model
-  hmm: /data/gpfs-1/users/giurgium_c/work/github/pbsim2/data/R94.model
+  hmm: /Users/madag/Projects/PhD/github/pbsim2/data/R94.model
+#  hmm: /data/gpfs-1/users/giurgium_c/work/github/pbsim2/data/R94.model
   circular: 1
 
 #decoil: decoil/decoil/main.py

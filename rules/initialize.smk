@@ -114,7 +114,7 @@ CONF_CIRCLES = {}
 CIRCLES = {}
 COVS = {}
 
-if INPUT and len(INPUT) > 10:
+if INPUT and len(INPUT) > 0:
 	for s in INPUT:
 		CONF_CIRCLES[s] = pd.read_csv(INPUT[s], header=0, sep="\t")
 		CIRCLES[s] = CONF_CIRCLES[s].structure.drop_duplicates().tolist()
@@ -123,6 +123,10 @@ if INPUT and len(INPUT) > 10:
 		COVS[s] = {}
 		for c in CIRCLES[s]:
 			COVS[s][c] = get_sim_depth(c, s)
+
+print(INPUT)
+print(SAMPLE)
+print(CIRCLES)
 
 # pprint.pprint(CIRCLES)
 # pprint.pprint(COVS)
